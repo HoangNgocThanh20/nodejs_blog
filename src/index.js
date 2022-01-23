@@ -5,6 +5,8 @@ const { engine } = require('express-handlebars')
 const app = express()
 const port = 3000
 
+const route = require('./routes')
+
 app.use(express.static(path.join(__dirname,'public')))
 
 app.use(express.urlencoded({
@@ -23,26 +25,10 @@ app.set('view engine', 'hbs');
 // pattern to point to the views folder
 app.set('views', path.join(__dirname, 'resources','views'))
 
+// Route init
+route(app)
+
 // Template engine to help write HTML structure
-
-app.get('/', (req, res) => {
-  res.render('home')
-})
-
-
-app.get('/news', (req, res) => {
-  res.render('news')
-})
-
-app.get('/search', (req, res) => {
-  res.render('search')
-})
-
-app.post('/search', (req, res) => {
-  console.log(req.body)
-  res.send('ewewe')
-})
-
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
