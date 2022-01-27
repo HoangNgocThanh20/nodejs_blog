@@ -1,5 +1,5 @@
-const newsRouter = require('./news')
-const siteRouter = require('./site')
+const newsRouter = require('./news');
+const siteRouter = require('./site');
 
 function route(app) {
     // before config route news
@@ -9,9 +9,8 @@ function route(app) {
 
     // after config route news
 
-    app.use('/news', newsRouter)
-    app.use('/', siteRouter)
-
+    app.use('/news', newsRouter);
+    app.use('/', siteRouter);
 }
 
 module.exports = route;

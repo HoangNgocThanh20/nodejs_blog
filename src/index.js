@@ -6,30 +6,39 @@ const app = express()
 const port = 3000
 
 const route = require('./routes')
+const db = require('./config/db')
 
-app.use(express.static(path.join(__dirname,'public')))
+// connect to DB
 
-app.use(express.urlencoded({
-  extended: true
-}))
+db.connect()
+
+app.use(express.static(path.join(__dirname, 'public')))
+
+// help get req of post method (body value)
+
+app.use(
+    express.urlencoded({
+        extended: true,
+    }),
+);
 app.use(express.json())
 
-
-// morgan library to help HTTP logger 
+// morgan library to help HTTP logger
 app.use(morgan('combined'))
 
-app.engine('hbs',engine({
-  extname: '.hbs'
-}))
-app.set('view engine', 'hbs');
+app.engine(
+    'hbs',
+    engine({
+        extname: '.hbs',
+    }),
+);
+app.set('view engine', 'hbs')
 // pattern to point to the views folder
-app.set('views', path.join(__dirname, 'resources','views'))
+app.set('views', path.join(__dirname, 'resources', 'views'))
 
 // Route init
 route(app)
 
-// Template engine to help write HTML structure
-
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+    console.log(`App listening on port ${port}`)
+});
